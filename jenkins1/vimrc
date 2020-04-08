@@ -1,0 +1,11 @@
+set number
+set ruler
+set ignorecase
+set cursorline
+set hlsearch
+syntax enable
+set laststatus=2
+set cindent shiftwidth=8
+" set autoindent
+set tabstop=4
+
