@@ -1,3 +1,7 @@
+#
+# Build: docker build -t gitolite .
+# docker run -it --rm --name gitolite -v `pwd`/issuer:/srv/trac/issuer gitolite
+#
 FROM ubuntu
 
 ARG DEBUG
@@ -16,7 +20,7 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Taipei /etc/localtime && \
   apt install -y --no-install-recommends \
     openssh-server vim tmux sqlite3 libsqlite3-dev curl p7zip-full p7zip-rar \
     build-essential make libc6:i386 zlib1g:i386 \
-    git git-lfs \
+    subversion git git-lfs \
     mono-runtime \
     openjdk-11-jdk openjdk-8-jdk \
     python python3 virtualenv python-dev python3-dev
@@ -35,7 +39,6 @@ ARG TRAC_HTTP_PORT=8080
 ENV TRAC_HTTP_PORT=${TRAC_HTTP_PORT}
 EXPOSE ${TRAC_HTTP_PORT}
 
-#pysqlite TracDragDrop
 RUN virtualenv -p python2 ${TRAC_DESTDIR} && \
   . ${TRAC_DESTDIR}/bin/activate && \
   pip install setuptools jinja2 genshi \
