@@ -1,6 +1,6 @@
 #
-# Build: docker build -t gitolite .
-# docker run -it --rm --name gitolite -v `pwd`/issuer:/srv/trac/issuer gitolite
+# Build: docker build --build-arg=DEBUG=1 -t gito1 .
+# docker run -it --rm --name gito -v `pwd`/issuer:/srv/trac/issuer gito1
 #
 FROM ubuntu
 
@@ -42,7 +42,7 @@ EXPOSE ${TRAC_HTTP_PORT}
 RUN virtualenv -p python2 ${TRAC_DESTDIR} && \
   . ${TRAC_DESTDIR}/bin/activate && \
   pip install setuptools jinja2 genshi \
-    Trac pysqlite TracAccountManager TracGraphviz && \
+    Trac pysqlite TracAccountManager TracGraphviz TracWikiExtras && \
   easy_install https://trac-hacks.org/svn/tracdragdropplugin/0.12
 
 ADD tmux.conf /root/.tmux.conf
