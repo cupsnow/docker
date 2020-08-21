@@ -1,11 +1,13 @@
 #
-# Build: docker build --build-arg=DEBUG=1 -t gito1 .
-# docker run -it --rm --name gito -v `pwd`/issuer:/srv/trac/issuer gito1
+# Build: docker build -m 200m --build-arg=DEBUG=1 -t gito1 .
+# docker run -m 200m --cpus=1 -it --rm --name gito -v `pwd`/issuer:/srv/trac/issuer gito1
 #
 FROM ubuntu
 
 ARG DEBUG
 
+# http://172.17.0.2:3142
+# http://192.168.141.34:3142
 RUN if [ "x${DEBUG}" != "x"  ]; then \
     echo "Using apt-cacher" && \
     (echo 'Acquire::http::Proxy "http://172.17.0.2:3142";' >> \
@@ -19,10 +21,11 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Taipei /etc/localtime && \
   apt update && apt upgrade -y && \
   apt install -y --no-install-recommends \
     openssh-server vim tmux sqlite3 libsqlite3-dev curl p7zip-full p7zip-rar \
+    graphviz \
     build-essential make libc6:i386 zlib1g:i386 \
     subversion git git-lfs \
     mono-runtime \
-    openjdk-11-jdk openjdk-8-jdk \
+    openjdk-14-jdk openjdk-8-jdk \
     python python3 virtualenv python-dev python3-dev
 
 RUN if [ "x${DEBUG}" = "x"  ]; then \
