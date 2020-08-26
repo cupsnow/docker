@@ -1,17 +1,17 @@
 #
-# Build: docker build -m 200m --build-arg=DEBUG=1 -t gito1 .
+# Build: docker build -m 200m -t gito1 .
+#   --build-arg=APT_CACHER=http://172.17.0.2:3142
+#   --build-arg=APT_RETAIN_CACHE=1
 # docker run -m 200m --cpus=1 -it --rm --name gito -v `pwd`/issuer:/srv/trac/issuer gito1
 #
 FROM ubuntu
 
-ARG DEBUG
-
-# http://172.17.0.2:3142
-# http://192.168.141.34:3142
-RUN if [ "x${DEBUG}" != "x"  ]; then \
-    echo "Using apt-cacher" && \
-    (echo 'Acquire::http::Proxy "http://172.17.0.2:3142";' >> \
+ARG APT_CACHER
+RUN if [ "x${APT_CACHER}" != "x"  ]; then \
+    echo "Using apt-cacher ${APT_CACHER}" && \
+    (echo 'Acquire::http::Proxy "'${APT_CACHER}'";' >> \
       /etc/apt/apt.conf.d/01proxy); \
+    # echo -n "Using apt-cacher: " && cat /etc/apt/apt.conf.d/01proxy; \
   fi
 
 # set localtime to silence install tzdata (mono-runtime)
@@ -28,7 +28,8 @@ RUN ln -fs /usr/share/zoneinfo/Asia/Taipei /etc/localtime && \
     openjdk-14-jdk openjdk-8-jdk \
     python python3 virtualenv python-dev python3-dev
 
-RUN if [ "x${DEBUG}" = "x"  ]; then \
+ARG APT_RETAIN_CACHE
+RUN if [ "x${APT_RETAIN_CACHE}" = "x"  ]; then \
     apt clean && \
     rm -rf /var/lib/apt/lists/*; \
   fi
