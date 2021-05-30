@@ -1,0 +1,12 @@
+; C:\Users\joelai\Desktop\m1_can1.xmt
+; CAN messages saved by PCAN-View 4.2.4
+;
+; Columns descriptions:
+; ~~~~~~~~~~~~~~~~~~~~~
+; +Message ID
+; |            +Cycle time in ms (0=manual)
+; |            |  +Data length
+; |            |  |  +Frame type
+; |            |  |  |  +Message data
+; |            |  |  |  |
+14Bh           0  1  D FEh ; ACC off start

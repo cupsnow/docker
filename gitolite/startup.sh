@@ -12,9 +12,6 @@ proc_running () {
 
 # ssh
 SSH_EXEC="/usr/sbin/sshd"
-ssh_svc () {
-  $SSH_EXEC
-}
 
 # lauch function from cli then exit
 if [ -n "$1" ]; then
@@ -22,10 +19,9 @@ if [ -n "$1" ]; then
   exit
 fi
 
-# start service
-ssh_svc
+# start service and keep foreground
+${SSH_EXEC}
 
-# keep this foreground
 while sleep 5; do
   proc_running "$SSH_EXEC" && continue
 done

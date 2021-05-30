@@ -1,0 +1,15 @@
+[Unit]
+Description=Trac
+After=mnt-dc.mount network-online.target
+Wants=network-online.target
+
+[Service]
+#Type=simple
+User=trac
+WorkingDirectory=/home/trac
+ExecStart=/bin/bash -c "source /home/trac/trac/bin/activate && tracd -p 8000 /home/trac/issuer1"
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+

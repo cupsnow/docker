@@ -1,0 +1,49 @@
+# Terminal macro file v2
+M1
+TCAN1043Mode 0$0d$0a
+M2
+TCAN1043Mode 1$0d$0a
+M3
+TCAN1043Mode 2$0d$0a
+M4
+TCAN1043Mode 3$0d$0a
+M5
+LevelHighLedBuzzer$0d$0a
+M6
+SPIFlashRead$0d$0a
+M7
+WDTTrigger 1$0d$0a
+M8
+WDTTrigger 0$0d$0a
+M9
+
+M10
+
+M11
+
+M12
+
+M13
+
+M14
+
+M15
+
+M16
+
+M17
+
+M18
+
+M19
+
+M20
+
+M21
+
+M22
+
+M23
+
+M24
+
